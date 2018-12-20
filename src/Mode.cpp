@@ -1,5 +1,4 @@
 #include "Mode.h"
-#include "../../../.platformio/packages/framework-arduinoespressif8266/cores/esp8266/HardwareSerial.h"
 
 
 Mode::Mode(Data *data, bool *new_message) {
@@ -97,14 +96,17 @@ void Mode::loop() {
         if (strcmp(data->color_data.mode, "fade") == 0) {
             Serial.println("mode started : fade");
             fade();
+            Serial.println("mode stopped : fade");
         }
         else if (strcmp(data->color_data.mode, "changingColors") == 0) {
             Serial.println("mode started : changingColors");
             changing_colors();
+            Serial.println("mode stopped: changingColors");
         }
         else {
             Serial.println("mode started : oneColor");
             one_color();
+            Serial.println("mode stopped : oneColor");
         }
     }
 }

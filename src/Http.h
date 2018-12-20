@@ -11,7 +11,6 @@
 class Http : public Task {
 public:
     Http(Data *data, bool *new_message);
-    void handle_request();
 
 private:
     const char *ssid = WLAN_SSID;
@@ -20,6 +19,8 @@ private:
     bool *new_message;
     Data *data;
 
+    void handle_request();
+    void handle_cors_request();
     void parse_json(String *message);
 
 protected:
