@@ -8,35 +8,35 @@ Http::Http(Data *data, bool *new_message) {
     this->data = data;
 }
 
-void Http::parse_json(String *message){
-    StaticJsonBuffer<800> JSONBuffer;
-    JsonObject &parsed = JSONBuffer.parseObject(*message);
-    if (!parsed.success()) {   //Check for errors in parsing
-        Serial.println("JSON parsing failed");
-        delay(5000);
+void Http::parse_json(String *message) {
+    StaticJsonDocument<800> JSONDocument;
+
+    deserializeJson(JSONDocument, *message);
+
+    JsonObject parsed = JSONDocument.as<JsonObject>();
+
+
+    Serial.println("parsing array");
+    const char *mode1;
+
+    uint8_t number_of_colors = parsed["number_of_colors"];
+    for (uint8_t i = 0; i < number_of_colors; i++) {
+        data->color_data.color_array[i].red = parsed["color_array"][i]["color_red"];
+        data->color_data.color_array[i].green = parsed["color_array"][i]["color_green"];
+        data->color_data.color_array[i].blue = parsed["color_array"][i]["color_blue"];
     }
-    else {
-        Serial.println("parsing array");
-        const char *mode1;
+    data->color_data.time = parsed["time"];
+    mode1 = parsed["mode"];
+    data->color_data.number_of_colors = number_of_colors;
 
-        uint8_t number_of_colors = parsed["number_of_colors"];
-        for (uint8_t i = 0; i < number_of_colors; i++) {
-            data->color_data.color_array[i].red = parsed["color_array"][i]["color_red"];
-            data->color_data.color_array[i].green = parsed["color_array"][i]["color_green"];
-            data->color_data.color_array[i].blue = parsed["color_array"][i]["color_blue"];
-        }
-        data->color_data.time = parsed["time"];
-        mode1 = parsed["mode"];
-        data->color_data.number_of_colors = number_of_colors;
+    strcpy(data->color_data.mode, mode1);
 
-        strcpy(data->color_data.mode, mode1);
+    *new_message = true;
 
-        *new_message = true;
 
-    }
 }
 
-void Http::handle_request(){
+void Http::handle_request() {
     if (server.hasArg("plain") == false) { //Check if body received
         server.sendHeader("Content-Type", "text/plain; charset=UTF-8");
         server.sendHeader("Content-Encoding", "UTF-8");
@@ -58,7 +58,7 @@ void Http::handle_request(){
     }
 }
 
-void Http::handle_cors_request(){
+void Http::handle_cors_request() {
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.sendHeader("Access-Control-Allow-Methods", "POST");
     server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -81,8 +81,8 @@ void Http::setup() {
     }
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());  //Print the local IP
-    server.on("/colors.json", HTTP_POST, std::bind(&Http::handle_request, this)); //Associate the handler function to the path
-    server.on("/colors.json", HTTP_OPTIONS, std::bind(&Http::handle_cors_request, this)); //Associate the handler function to the path
+    server.on("/colors.json", HTTP_POST, std::bind(&Http::handle_request, this));
+    server.on("/colors.json", HTTP_OPTIONS, std::bind(&Http::handle_cors_request, this));
     server.begin(); //Start the server
     Serial.println("Server listening");
 }

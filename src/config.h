@@ -6,7 +6,7 @@
 
 #define GPIO_RED 1
 #define GPIO_GREEN 3
-#define GPIO_BLUE 2
+#define GPIO_BLUE 0
 
 #define DATA_SIZE 6
 

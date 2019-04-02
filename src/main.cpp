@@ -19,11 +19,19 @@ Mode mode(&data, &new_message);
 void setup() {
     Serial.begin(115200);
 
+    /**
+     * ESP01
+
+    pinMode(1, FUNCTION_3);
+    pinMode(3, FUNCTION_3);
+
+     */
+
     Scheduler.start(&mode);
     Scheduler.start(&http);
     Scheduler.begin();
 }
 
 void loop() {
-
+    Serial.println("test");
 }
