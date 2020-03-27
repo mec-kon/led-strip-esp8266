@@ -7,5 +7,5 @@ GPIO::GPIO() {
 }
 
 void GPIO::pwm_write(uint8_t gpio, uint16_t value) {
-    analogWrite(gpio, PWMRANGE -(value*4));
+    analogWrite(gpio, value*4);
 }

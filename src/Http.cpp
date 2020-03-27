@@ -74,13 +74,19 @@ void Http::setup() {
     Serial.println("http init");
 
     Serial.println("Wifi init");
+
+    Serial.print("ESP Board MAC Address:  ");
+    Serial.println(WiFi.macAddress());
+
     WiFi.begin(ssid, password);  //Connect to the WiFi network
     while (WiFi.status() != WL_CONNECTED) {  //Wait for connection
         delay(500);
         Serial.println("Waiting to connect...");
     }
+
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());  //Print the local IP
+
     server.on("/colors.json", HTTP_POST, std::bind(&Http::handle_request, this));
     server.on("/colors.json", HTTP_OPTIONS, std::bind(&Http::handle_cors_request, this));
     server.begin(); //Start the server

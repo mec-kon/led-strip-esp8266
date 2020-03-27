@@ -2,8 +2,8 @@
 #define ESP8266_HTTP_H
 
 #include <ESP8266WebServer.h>
-#include "../.piolibdeps/ESP8266Scheduler_ID917/src/Scheduler.h"
-#include "../.piolibdeps/ArduinoJson_ID64/src/ArduinoJson.h"
+#include "../.pio/libdeps/esp12e/ESP8266Scheduler_ID917/src/Scheduler.h"
+#include "../.pio/libdeps/esp12e/ArduinoJson_ID64/src/ArduinoJson.h"
 
 #include "config.h"
 #include "Data.h"

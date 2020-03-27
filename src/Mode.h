@@ -1,7 +1,7 @@
 #ifndef ESP8266_MODE_H
 #define ESP8266_MODE_H
 
-#include "../.piolibdeps/ESP8266Scheduler_ID917/src/Scheduler.h"
+#include "../.pio/libdeps/esp12e/ESP8266Scheduler_ID917/src/Scheduler.h"
 #include "GPIO.h"
 #include "Data.h"
 

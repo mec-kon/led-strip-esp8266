@@ -1,6 +1,7 @@
 #include <Arduino.h>
-#include <../.piolibdeps/ESP8266Scheduler_ID917/src/Scheduler.h>
+#include <../.pio/libdeps/esp12e/ESP8266Scheduler_ID917/src/Scheduler.h>
 
+#include "config.h"
 #include "Data.h"
 #include "Http.h"
 

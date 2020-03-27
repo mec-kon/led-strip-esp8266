@@ -4,9 +4,9 @@
 #define WLAN_SSID "ssid"
 #define PASSWORD "password"
 
-#define GPIO_RED 1
-#define GPIO_GREEN 3
-#define GPIO_BLUE 0
+#define GPIO_RED 4
+#define GPIO_GREEN 14
+#define GPIO_BLUE 5
 
 #define DATA_SIZE 6
 

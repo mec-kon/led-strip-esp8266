@@ -9,8 +9,8 @@ Mode::Mode(Data *data, bool *new_message) {
 void Mode::one_color() {
     Color color = data->color_data.color_array[0];
 
-    //gpio.pwm_write(GPIO_RED, color.red);
-    //gpio.pwm_write(GPIO_GREEN, color.green);
+    gpio.pwm_write(GPIO_RED, color.red);
+    gpio.pwm_write(GPIO_GREEN, color.green);
     gpio.pwm_write(GPIO_BLUE, color.blue);
 }
 
@@ -58,8 +58,8 @@ void Mode::fade() {
                 color1.blue++;
             }
 
-            //gpio.pwm_write(GPIO_RED, color1.red);
-            //gpio.pwm_write(GPIO_GREEN, color1.green);
+            gpio.pwm_write(GPIO_RED, color1.red);
+            gpio.pwm_write(GPIO_GREEN, color1.green);
             gpio.pwm_write(GPIO_BLUE, color1.blue);
 
             delay(data->color_data.time);
@@ -78,8 +78,8 @@ void Mode::changing_colors() {
         color = data->color_data.color_array[i];
         i++;
 
-        //gpio.pwm_write(GPIO_RED, color.red);
-        //gpio.pwm_write(GPIO_GREEN, color.green);
+        gpio.pwm_write(GPIO_RED, color.red);
+        gpio.pwm_write(GPIO_GREEN, color.green);
         gpio.pwm_write(GPIO_BLUE, color.blue);
 
         delay(data->color_data.time * 10);
