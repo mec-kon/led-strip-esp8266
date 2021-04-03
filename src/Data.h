@@ -1,7 +1,10 @@
 #ifndef ESP8266_DATA_H
 #define ESP8266_DATA_H
 
-#include "Arduino.h"
+#include <Arduino.h>
+#include <ArduinoJson.h>
+#include <string.h>
+
 #include "config.h"
 
 struct Color{
@@ -24,5 +27,8 @@ struct Data {
     }color_data;
 };
 
+bool new_data();
+void set_data(String message);
+Data* get_data();
 
 #endif //ESP8266_DATA_H

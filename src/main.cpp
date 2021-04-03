@@ -1,38 +1,46 @@
 #include <Arduino.h>
-#include <../.pio/libdeps/esp12e/ESP8266Scheduler_ID917/src/Scheduler.h>
+#include <ArduinoJson.h>
+#include <PubSubClient.h>
+#include <ElegantOTA.h>
 
 #include "config.h"
-#include "Data.h"
 #include "Http.h"
+#include "SchedulerDefinitions.h"
+#include "LED_Modes.h"
 
-#include "GPIO.h"
-#include "Mode.h"
+Scheduler runner;
 
-bool new_message = false;
-Data data;
+void mqtt_loop(){
+    //Serial.println(".");
+}
 
-Http http(&data, &new_message);
-Mode mode(&data, &new_message);
-
-
+Task http(TASK_IMMEDIATE, TASK_FOREVER, &http_thread);
+Task mqtt(1000, TASK_FOREVER, &mqtt_loop);
+Task led(TASK_IMMEDIATE, TASK_FOREVER, &led_loop);
 
 
 void setup() {
     Serial.begin(115200);
+    Serial.println("program started");
 
-    /**
-     * ESP01
+    pinMode(GPIO_RED, OUTPUT);
+    pinMode(GPIO_GREEN, OUTPUT);
+    pinMode(GPIO_BLUE, OUTPUT);
 
-    pinMode(1, FUNCTION_3);
-    pinMode(3, FUNCTION_3);
+    runner.init();
 
-     */
+    runner.addTask(http);
+    runner.addTask(mqtt);
+    runner.addTask(led);
+    runner.addTask(fade_mode);
+    runner.addTask(changing_colors_mode);
 
-    Scheduler.start(&mode);
-    Scheduler.start(&http);
-    Scheduler.begin();
+    http.enable();
+    mqtt.enable();
+    led.enable();
+
 }
 
 void loop() {
-    Serial.println("test");
+    runner.execute();
 }

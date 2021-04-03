@@ -12,11 +12,13 @@ Three different modes are currently available.
 Config
 --------
 esp12e:  
-        ```platformio init --board esp12e --ide clion```  
-        ```platformio lib install 917```  
-        ```platformio lib install 64```  
-        
+        ```platformio init --board esp12e```  
+        ```pio lib install "arkhipenko/TaskScheduler"```  
+        ```pio lib install "bblanchon/ArduinoJson"```  
+        ```pio lib install "ayushsharma82/ElegantOTA"```  
+        ```pio lib install "knolleary/PubSubClient"```          
 
 Pull requests
 --------
 Pull requests are always welcome !
+
